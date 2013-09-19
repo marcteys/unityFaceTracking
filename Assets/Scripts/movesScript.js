@@ -1,7 +1,7 @@
 
 
 
-private var csTracker : FaceTrackNoIRClientDll ;
+private var csTracker : UDPReceive ;
 
 private var verifOnce : boolean  = true;
 	public var PositionSpeed : float=0.001;
@@ -49,7 +49,7 @@ var Target :Transform;
 */
 
 function Start () {
-	csTracker = GameObject.Find("FaceTrackInput").GetComponent("FaceTrackNoIRClientDll");
+	csTracker = GameObject.Find("Test2").GetComponent("UDPReceive");
 		startPos = Target.position;
 }
 

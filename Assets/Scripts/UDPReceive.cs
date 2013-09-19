@@ -1,64 +1,87 @@
-
 using UnityEngine;
 using System.Collections;
+
 using System;
 using System.Text;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+
 public class UDPReceive: MonoBehaviour {
+	
 	// receiving Thread
 	Thread receiveThread;
+	
 	// udpclient object
 	UdpClient client;
-	// public
-	// public string IP = "127.0.0.1"; default local
+
+	
 	public int port; // define > init
+	
 	// infos
 	public string lastReceivedUDPPacket = "";
 	public string allReceivedUDPPackets = ""; // clean up this from time to time!
+	
+	   // FaceAPI
+   public float xPos;
+   public float yPos;
+   public float zPos;
+   public float pitch;
+   public float yaw;
+   public float roll;
+	
 	// start from shell
 	private static void Main() {
+		
 		UDPReceive receiveObj = new UDPReceive();
 		receiveObj.init();
 		string text = "";
+		
 		do {
 			text = Console.ReadLine();
 		}
 		while (!text.Equals("exit"));
 	}
+	
 	// start from unity3d
 	public void Start() {
 		init();
 	}
-	// OnGUI
-	void OnGUI() {
-		Rect rectObj = new Rect(40, 10, 200, 400);
-		GUIStyle style = new GUIStyle();
-		style.alignment = TextAnchor.UpperLeft;
-		GUI.Box(rectObj, "# UDPReceive\n127.0.0.1 " + port + " #\n" + "shell> nc -u 127.0.0.1 : " + port + " \n" + "\nLast Packet: \n" + lastReceivedUDPPacket + "\n\nAll Messages: \n" + allReceivedUDPPackets, style);
+	
+	public string getLastPacket() {
+		return lastReceivedUDPPacket;
 	}
+	
+	
 	// init
 	private void init() {
-		// Endpunkt definieren, von dem die Nachrichten gesendet werden.
+		
+		xPos = 0;
+       yPos = 0;
+       zPos = 0;
+       pitch = 0;
+       yaw = 0;
+       roll = 0;
+		
+		
 		print("UDPSend.init()");
 		// define port
 		port = 5550;
+		
 		// status
 		print("Sending to 127.0.0.1 : " + port);
 		print("Test-Sending to this Port: nc -u 127.0.0.1  " + port + "");
-		// ----------------------------
-		// Abhören
-		// ----------------------------
-		// Lokalen Endpunkt definieren (wo Nachrichten empfangen werden).
-		// Einen neuen Thread für den Empfang eingehender Nachrichten erstellen.
+		
+		
 		receiveThread = new Thread(
 			new ThreadStart(ReceiveData));
 		receiveThread.IsBackground = true;
 		receiveThread.Start();
 	}
+	
 	// receive thread 
 	private void ReceiveData() {
+		
 		client = new UdpClient(port);
 		while (true) {
 			try {
@@ -70,7 +93,29 @@ public class UDPReceive: MonoBehaviour {
 				
 				for (int i = 0; i < 6; i++)	{
    					double datum = System.BitConverter.ToDouble(data, i * 8);
-					print(datum);
+					var j = i+1;
+						switch (j)
+						{
+						     case 1: {
+								xPos = (float)datum;
+						        break;
+						    } case 2: {
+								yPos = (float)datum;
+						        break;
+						    } case 3: {
+								zPos = (float)datum;
+								break;
+						    }case 4: {
+								pitch = (float)datum;
+						        break;
+						    } case 5: {
+								yaw = (float)datum;
+						        break;
+						    } case 6: {
+								roll = (float)datum;
+								break;
+						    }
+						}
 				}
 				
 				// ....
