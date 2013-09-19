@@ -29,8 +29,6 @@ public class UDPReceive: MonoBehaviour {
 	}
 	// start from unity3d
 	public void Start() {
-		//00-00-00-80-59-9E-2F-C0-00-00-00-40-44-04-32-C0-00-00-00-C0-E4-37-4C-40-00-00-00-80-25-FE-32-C0-00-00-00-00-52-3F-51-C0-00-00-00-E0-A3-70-14-40
-		print(Decode(1440));
 		init();
 	}
 	// OnGUI
@@ -64,17 +62,17 @@ public class UDPReceive: MonoBehaviour {
 		client = new UdpClient(port);
 		while (true) {
 			try {
-				// Bytes empfangen.
+
 				IPEndPoint anyIP = new IPEndPoint(IPAddress.Any, 0);
 				byte[] data = client.Receive(ref anyIP);
-				// Bytes mit der UTF8-Kodierung in das Textformat kodieren.
-				string text = System.BitConverter.ToString(data);
-				//00-00-00-80-59-9E-2F-C0-00-00-00-40-44-04-32-C0-00-00-00-C0-E4-37-4C-40-00-00-00-80-25-FE-32-C0-00-00-00-00-52-3F-51-C0-00-00-00-E0-A3-70-14-40
-				// Den abgerufenen Text anzeigen.
-				// print(">> " + text);
-				// latest UDPpacket
-				lastReceivedUDPPacket = text;
-				print(Decode(4044));
+
+				
+				
+				for (int i = 0; i < 6; i++)	{
+   					double datum = System.BitConverter.ToDouble(data, i * 8);
+					print(datum);
+				}
+				
 				// ....
 				// allReceivedUDPPackets=allReceivedUDPPackets+text;
 			} catch (Exception err) {
@@ -82,23 +80,8 @@ public class UDPReceive: MonoBehaviour {
 			}
 		}
 	}
-	public static short Encode(double value) {
-		int cnt = 0;
-		while (value != Math.Floor(value)) {
-			value *= 10.0;
-			cnt++;
-		}
-		return (short)((cnt << 12) + (int) value);
-	}
-	public static double Decode(short value) {
-		int cnt = value >> 12;
-		double result = value & 0xfff;
-		while (cnt > 0) {
-			result /= 10.0;
-			cnt--;
-		}
-		return result;
-	}
+
+	
 	// getLatestUDPPacket
 	// cleans up the rest
 	public string getLatestUDPPacket() {
