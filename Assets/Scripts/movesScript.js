@@ -7,7 +7,7 @@ private var verifOnce : boolean  = true;
 	public var PositionSpeed : float=0.001;
 
 		public var RotationSpeed : float= 5;
-		
+		public var transformInput :GameObject ;
 var Target :Transform;
    private var oriYaw : float;
 	private var oriPitch: float;
@@ -49,18 +49,17 @@ var Target :Transform;
 */
 
 function Start () {
-	csTracker = GameObject.Find("Test2").GetComponent("UDPReceive");
-		startPos = Target.position;
+	csTracker = transformInput.GetComponent("UDPReceive");
+	startPos = Target.position;
 }
 
 
 function Update () {
 
-
-
+//Debug.Log(csTracker.z.GetType().ToString());
 
 /* RaZ */
-	if(verifOnce && csTracker.Yaw !=0 )  {
+	if(verifOnce && csTracker.yaw !=0 )  {
 		initVariables();
 		verifOnce = false;
 
@@ -69,16 +68,15 @@ function Update () {
 	
 /* Update values */
 
-X = csTracker.X - oriX  ;
+	X = csTracker.xPos - oriX  ;
 	
 	
 	if(Target)
 		{
 		
-	//	Target.position = ;
-	Target.position =startPos + new Vector3(csTracker.X*PositionSpeed,csTracker.Y*PositionSpeed,-csTracker.Z*PositionSpeed);
+		Target.position =startPos + new Vector3(csTracker.xPos*PositionSpeed,csTracker.yPos*PositionSpeed,-csTracker.zPos*PositionSpeed);
 		
-		Target.rotation = Quaternion.Euler(-csTracker.Pitch*RotationSpeed,-csTracker.Yaw*RotationSpeed,csTracker.Roll*RotationSpeed);
+		Target.rotation = Quaternion.Euler(-csTracker.pitch*RotationSpeed,-csTracker.yaw*RotationSpeed,csTracker.roll*RotationSpeed);
 		}
 	else return;
 	
@@ -112,20 +110,21 @@ X = csTracker.X - oriX  ;
 
 function initVariables() {
 	
-	   oriYaw = csTracker.Yaw;
-	 oriPitch= csTracker.Pitch;
-	 oriRoll= csTracker.Roll;
+	   oriYaw = csTracker.yaw;
+	 oriPitch= csTracker.pitch;
+	 oriRoll= csTracker.roll;
 	 
-   	 oriX= csTracker.X;
-	 oriY= csTracker.Y;
-		oriZ= csTracker.Z;
-	
+   	 oriX= csTracker.xPos;
+	 oriY= csTracker.yPos;
+	oriZ= csTracker.zPos;
+		
+	/*
 	 oriRawYaw= csTracker.RawYaw;
 	 oriRawPitch= csTracker.RawPitch;
-	 oriRawRoll= csTracker.Roll;
+	 oriRawRoll= csTracker.roll;
     oriRawX= csTracker.RawX;
 	 oriRawY= csTracker.RawY;
 	oriRawZ= csTracker.RawZ;
-
+*/
 
 }

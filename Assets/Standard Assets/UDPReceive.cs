@@ -100,19 +100,22 @@ public class UDPReceive: MonoBehaviour {
 								xPos = (float)datum;
 						        break;
 						    } case 2: {
-								yPos = (float)datum;
+											pitch = (float)datum;	
+
 						        break;
 						    } case 3: {
 								zPos = (float)datum;
 								break;
 						    }case 4: {
-								pitch = (float)datum;
+								yaw = (float)datum;
+
 						        break;
 						    } case 5: {
-								yaw = (float)datum;
+										yPos = (float)datum;		//		
+						
 						        break;
 						    } case 6: {
-								roll = (float)datum;
+							roll = (float)datum;
 								break;
 						    }
 						}
