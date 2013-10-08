@@ -27,6 +27,7 @@ How does it works
 [FaceAPI](http://www.seeingmachines.com/product/faceapi/) is a powerfull real time 2D tracker. This software track the head-position in 3D providing X,Y,Z position and orientation coordinates per frame of video.
 Opentrack allow us to send this via the [UDP](http://fr.wikipedia.org/wiki/User_Datagram_Protocol) protocol, on the local server. The head position data is stored in the ram. With unity 3D, the script UDPRecieve read the bytes, and decode it from hexa to float.
 
+The UDPRecieve `c#` script is located in the Standard Assets folder, to be compiled before the `javascript` script. Buy doing this, we can make a gap between `c#` and `javascript`.
 
 ### To do
 
