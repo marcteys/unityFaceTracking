@@ -2,6 +2,7 @@ Unity Face Tracking
 =================
 
 Unity face tracking is an easy way to use head position in your interactive projects.
+[View Demo](https://t.co/3t7QAAwRQu) (6s vine video)
 
 
 Requirements
