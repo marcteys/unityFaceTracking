@@ -15,13 +15,13 @@ Getting Started
 --------
 
 
- 1. Launch Opentrack. 
-* Select `FaceAPI` in Tracker Source.
-* Use `Flight Gear` as Game Protocol (use the port 5550, by default)
-* Press Start
+* Launch Opentrack. 
+1. Select `FaceAPI` in Tracker Source.
+2. Use `Flight Gear` as Game Protocol (use the port 5550, by default)
+3. Press Start
 
-2. Open the Unity project.
-* Run the game in Unity. You are done !
+* Open the Unity project.
+1. Run the game in Unity. You are done !
 
 
 How does it works
