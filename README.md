@@ -27,6 +27,10 @@ Getting Started
 1. Open Unity project
 2. Run the game. You are done !
 
+###The code
+
+
+
 
 How does it works
 ------------------
